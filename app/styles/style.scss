@@ -5,3 +5,11 @@ $icon-font-path: "../styles/fonts/"; // Change the path to the fonts
 html, body {
     margin: 30px 0;
 }
+
+
+.dropdown.dropdown-custom {
+    text-indent: 15px;
+    line-height: 28px;
+    font-size: 18px;
+    width: 200px;
+}
