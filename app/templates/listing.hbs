@@ -3,10 +3,11 @@
         <div class="col-md-3">
             <div class="input-group input-group-lg">
 
-                <label for="minute-rate">Minute Rate:</label>
+                <label for="minute-rate">Minute Rate for&nbsp;</label>
+                <span>{{name}}:</span>
                 <div class="input-group">
                     <span class="input-group-addon">$</span>
-                    <input id="minute-rate" type="text" class="form-control" placeholder="2.99" />
+                    {{input id="minute-rate" type="text" class="form-control" value=price placeholder="2.99"}}
                 </div>
             </div>
         </div>
@@ -22,7 +23,7 @@
                             <div>You will earn (per minute):</div>
                         </div>
                         <div class="col-md-3">
-                            <div>$2.99</div>
+                            <div>${{price}}</div>
                             <div>$0.20</div>
                             <div>$0.60</div>
                             <div class="label label-success">$1.39</div>

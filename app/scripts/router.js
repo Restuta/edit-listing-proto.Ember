@@ -1,7 +1,8 @@
 EmberApp.Router.map(function() {
-    this.resource('listings', function() {
-        this.resource('listing', {path: ':listing_id'});
-    });
+    this.resource('listings');
+    this.resource('listing', {path: 'listings/:listing_id'});
+
+    this.resource('about', {path: '/about/:listing_id'});
 });
 
 var listings = [{
@@ -21,6 +22,12 @@ EmberApp.ListingsRoute = Ember.Route.extend({
 });
 
 EmberApp.ListingRoute = Ember.Route.extend({
+    model: function(params) {
+        return listings.findBy('id', parseInt(params.listing_id, 10));
+    }
+});
+
+EmberApp.AboutRoute = Ember.Route.extend({
     model: function(params) {
         return listings.findBy('id', params.listing_id);
     }
