@@ -1,0 +1,11 @@
+<div>
+    {{#each model}}
+
+        <div>
+            {{#link-to 'listing' this}}
+                {{id}}: {{name}}
+            {{/link-to}}
+        </div>
+
+    {{/each}}
+</div>
