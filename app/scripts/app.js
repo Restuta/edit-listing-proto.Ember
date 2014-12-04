@@ -8,3 +8,13 @@ require('scripts/routes/*');
 require('scripts/components/*');
 require('scripts/views/*');
 require('scripts/router');
+
+/*
+* todo: consider using Accounting.js to format money + handlebars helpers:
+*  http://josscrowcroft.github.io/accounting.js/
+*
+ Ember.Handlebars.registerBoundHelper('money', function(price) {
+ return accounting.formatMoney(price / 100);
+ });
+
+ */
