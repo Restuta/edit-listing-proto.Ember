@@ -1,11 +1,24 @@
-EmberApp.Router.map(function() {
+App.Router.map(function() {
     this.resource('listings');
     this.resource('listing', {path: 'listings/:listing_id'});
 
-    this.resource('about', {path: '/about/:listing_id'});
+    this.resource('about');
 });
 
-var listings = [{
+//note: model should NOT define id or things will break
+App.Listing = DS.Model.extend({
+    //id: DS.attr(),
+    name: DS.attr(),
+    minuteRate: DS.attr(),
+    ourFee: function() {
+        return (this.get('minuteRate') * 0.3).toFixed(2);
+    }.property('minuteRate'),
+    youWillEarn: function() {
+        return (this.get('minuteRate') - this.get('ourFee')).toFixed(2);
+    }.property('minuteRate')
+});
+
+App.Listing.FIXTURES = [{
     id: 1,
     name: 'First listing',
     minuteRate: 2.99
@@ -15,20 +28,29 @@ var listings = [{
     minuteRate: 5.88
 }];
 
-EmberApp.ListingsRoute = Ember.Route.extend({
+App.ListingsRoute = Ember.Route.extend({
     model: function() {
-        return listings;
+        return this.store.findAll('listing');
     }
 });
 
-EmberApp.ListingRoute = Ember.Route.extend({
+App.ListingRoute = Ember.Route.extend({
     model: function(params) {
-        return listings.findBy('id', parseInt(params.listing_id, 10));
+        //todo: this is not getting executed for some reason, figure out why
+            //but it's getting kicked when we come directly to that route, not by clicking on a link at 'listings/' page
+        //debugger;
+        return this.store.find('listing', params.listing_id);
     }
 });
 
-EmberApp.AboutRoute = Ember.Route.extend({
-    model: function(params) {
-        return listings.findBy('id', params.listing_id);
-    }
+App.ListingsController = Ember.ArrayController.extend({
+   total: function() {
+        return this.get('length');
+   }.property('length')
+});
+
+App.ListingController = Ember.ObjectController.extend({
+   //ourFee: function() {
+   //    return this.get('model.minuteRate') * 0.3;
+   //}.property('model.minuteRate')
 });
