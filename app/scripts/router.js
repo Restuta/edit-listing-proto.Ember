@@ -42,14 +42,24 @@ App.DraftsRoute = Ember.Route.extend({
 App.ListingsNewRoute = Ember.Route.extend({
     redirect: function() {
         console.log('POST /listings/drafts/ and get its id');
-        var draft = this.store.find('draft', 2);
-        this.transitionTo('draft', draft);
+        var newDraft = this.store.createRecord('draft');
+
+        var route = this;
+        newDraft.save().then(function() {
+            console.log('primise stuff');
+
+            //todo: this makes "back" button to go to /listing/new, which is no desired
+            route.transitionTo('draft', newDraft);
+        });
+
+
     }
 });
 
 App.DraftRoute = Ember.Route.extend({
     //todo: fetching of the model by id is a default thing in Ember
     //model: function(params) {
+    //    console.log('draft route model hook');
     //    return this.store.find('draft', params.draft_id);
     //}
 });
