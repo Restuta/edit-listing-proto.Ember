@@ -1,0 +1,25 @@
+<div>
+    <div class="row">
+        <label>Edit Listing Draft or </label>
+        {{#link-to 'listings.new' class="btn btn-primary btn-sm"}}
+            Create new
+        {{/link-to}}
+        {{#each}}
+            <div>
+                {{#link-to 'draft' this}}
+                    {{id}}: {{name}}
+                {{/link-to}}
+
+                {{!--
+                {{partial 'partials/_listing-link'}}
+                {{listing-info listing=this}}
+                --}}
+            </div>
+        {{/each}}
+
+        <label>Total : {{total}}</label>
+    </div>
+    <div class="row" style="padding-top: 10px;">
+
+    </div>
+</div>
