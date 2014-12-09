@@ -42,19 +42,16 @@ App.DraftsRoute = Ember.Route.extend({
 App.ListingsNewRoute = Ember.Route.extend({
     redirect: function() {
         console.log('POST /listings/drafts/ and get its id');
-        var draftId = 2;
-        this.transitionTo('draft', draftId);
+        var draft = this.store.find('draft', 2);
+        this.transitionTo('draft', draft);
     }
 });
 
 App.DraftRoute = Ember.Route.extend({
     //todo: fetching of the model by id is a default thing in Ember
-    model: function(params) {
-        console.log('draft route');
-        //todo: this is not getting executed for some reason, figure out why
-            //but it's getting kicked when we come directly to that route, not by clicking on a link at 'listings/' page
-        return this.store.find('draft', params.draft_id);
-    }
+    //model: function(params) {
+    //    return this.store.find('draft', params.draft_id);
+    //}
 });
 
 App.DraftsController = Ember.ArrayController.extend({
