@@ -7,6 +7,10 @@
      - may need local server for that (can be done with node and express in 5 mins or Nancy for .NET)
  * after editing is done do PUT to `/api/listings/drafts/:id`
  
+ ##Ember specific:
+ * split templates/controllers/views/ and routes to separate files
+ * move it to EmberCLI
+ 
 ##How to run on Windows
 ```
 #clone project from GitHub
