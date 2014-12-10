@@ -12,14 +12,19 @@ App.Router.map(function() {
 //note: model should NOT define id or things will break
 App.Draft = DS.Model.extend({
     name: DS.attr(),
-    minuteRate: DS.attr(),
+    minuteRate: DS.attr()
     //todo: these properties can also be put in controller, we need to figure out good reasons to favor one over another
-    ourFee: function() {
-        return (this.get('minuteRate') * 0.3).toFixed(2);
-    }.property('minuteRate'),
-    youWillEarn: function() {
-        return (this.get('minuteRate') - this.get('ourFee')).toFixed(2);
-    }.property('minuteRate')
+    //ourFee: function() {
+    //    return (this.get('minuteRate') * 0.3).toFixed(2);
+    //}.property('minuteRate'),
+    //youWillEarn: function() {
+    //    return (this.get('minuteRate') - this.get('ourFee')).toFixed(2);
+    //}.property('minuteRate')
+});
+
+App.ListingCategory = DS.Model.extend({
+    name: DS.attr(),
+    children: DS.hasMany('listingCategory', {inverse: null})
 });
 
 App.Draft.FIXTURES = [{
@@ -55,9 +60,19 @@ App.ListingsNewRoute = Ember.Route.extend({
 App.DraftRoute = Ember.Route.extend({
     //todo: fetching of the model by id is a default thing in Ember
     //model: function(params) {
-    //    console.log('draft route model hook');
-    //    return this.store.find('draft', params.draft_id);
-    //}
+    //    return Ember.RSVP.hash({
+    //        draft: this.store.find('draft', params.draft_id),
+    //        listingCategories: this.store.findAll('listingCategory')
+    //        //listingCategories: {}
+    //    });
+    //},
+    setupController: function(controller, model) {
+        this._super(controller, model);
+
+        Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
+            controller.set('listingCategories', response.listingCategories);
+        });
+    }
 });
 
 App.DraftsController = Ember.ArrayController.extend({
@@ -67,10 +82,10 @@ App.DraftsController = Ember.ArrayController.extend({
 });
 
 App.DraftController = Ember.ObjectController.extend({
-    //ourFee: function() {
-    //    return (this.get('model.minuteRate') * 0.3).toFixed(2);
-    //}.property('model.minuteRate'),
-    //youWillEarn: function() {
-    //    return (this.get('model.minuteRate') - this.get('ourFee')).toFixed(2);
-    //}.property('model.minuteRate')
+    ourFee: function() {
+        return (this.get('model.minuteRate') * 0.3).toFixed(2);
+    }.property('model.minuteRate'),
+    youWillEarn: function() {
+        return (this.get('model.minuteRate') - this.get('ourFee')).toFixed(2);
+    }.property('model.minuteRate')
 });
