@@ -10,6 +10,7 @@
  ##Ember specific:
  * split templates/controllers/views/ and routes to separate files
  * move it to EmberCLI
+ * switch proto to Fortune.JS from Express
  
 ##How to run on Windows
 ```

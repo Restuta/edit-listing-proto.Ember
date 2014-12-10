@@ -46,13 +46,9 @@ App.ListingsNewRoute = Ember.Route.extend({
 
         var route = this;
         newDraft.save().then(function() {
-            console.log('primise stuff');
-
             //todo: this makes "back" button to go to /listing/new, which is no desired
             route.transitionTo('draft', newDraft);
         });
-
-
     }
 });
 
