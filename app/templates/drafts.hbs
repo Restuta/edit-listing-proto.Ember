@@ -4,10 +4,10 @@
         {{#link-to 'listings.new' class="btn btn-primary btn-sm"}}
             Create new
         {{/link-to}}
-        {{#each}}
+        {{#each draft in model}}
             <div>
-                {{#link-to 'draft' this}}
-                    {{id}}: {{name}}
+                {{#link-to 'draft' draft}}
+                    {{draft.id}}: {{draft.name}}
                 {{/link-to}}
 
                 {{!--
