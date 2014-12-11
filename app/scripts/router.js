@@ -59,24 +59,25 @@ App.ListingsNewRoute = Ember.Route.extend({
 
 App.DraftRoute = Ember.Route.extend({
     //todo: fetching of the model by id is a default thing in Ember
-    model: function(params) {
-        var model = Em.A([]);
-        this.store.find('draft', params.draft_id).then(function(content) {
-            model.set('content', content);
-            console.log(model);
-            //model.addObjects(content);
-        });
-        return model;
-
-        //return this.store.find('draft', params.draft_id);
-    }
+    //todo: figure out how to load template first and data after.
+    //model: function(params) {
+    //    var model = Em.A([]);
+    //    this.store.find('draft', params.draft_id).then(function(content) {
+    //        model.set('content', content);
+    //        console.log(model);
+    //        //model.addObjects(content);
+    //    });
+    //    return model;
+    //
+    //    //return this.store.find('draft', params.draft_id);
+    //}
 
     //todo: fetching of the mode land listing categories will be sequential in this case, which delays view rendering
-    //afterModel: function(drafts){
-    //    return Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
-    //        drafts.set('listingCategories', response.listingCategories);
-    //    });
-    //}
+    afterModel: function(drafts){
+        return Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
+            drafts.set('listingCategories', response.listingCategories);
+        });
+    }
 
     //setupController: function(controller, model) {
     //    var self = this;
@@ -109,7 +110,9 @@ App.DraftController = Ember.ObjectController.extend({
         return (this.get('model.minuteRate') - this.get('ourFee')).toFixed(2);
     }.property('model.minuteRate'),
 
-    selectedCategory: {
-        id: 1
-    }
+    selectedCategoryId: 2,
+
+    subCategories: function(){
+        console.log('bla');
+    }.property('selectedCategoryId')
 });
