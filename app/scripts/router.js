@@ -87,5 +87,8 @@ App.DraftController = Ember.ObjectController.extend({
     }.property('model.minuteRate'),
     youWillEarn: function() {
         return (this.get('model.minuteRate') - this.get('ourFee')).toFixed(2);
-    }.property('model.minuteRate')
+    }.property('model.minuteRate'),
+    selectedCategory: {
+        id: 1
+    }
 });

@@ -36,17 +36,14 @@
 
     <div class="row">
         <div class="col-md-3">
-
-            {{view "select" content=listingCategories optionValuePath="content.id" optionLabelPath="content.name" }}
-
             <div class="input-group input-group-lg">
                 <label for="category-1"></label>
-                <select id="category-1" class="dropdown dropdown-custom">
-                    <option>Relationship Coaching</option>
-                    <option>Life Coaching</option>
-                    <option>Family Coaching</option>
-                    <option>Health & Wellness</option>
-                </select>
+                {{view "select"
+                    content=listingCategories
+                    optionValuePath="content.id"
+                    optionLabelPath="content.name"
+                    value=selectedCategory.id
+                }}
             </div>
         </div>
         <div class="col-md-9">
