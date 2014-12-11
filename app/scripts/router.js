@@ -59,20 +59,39 @@ App.ListingsNewRoute = Ember.Route.extend({
 
 App.DraftRoute = Ember.Route.extend({
     //todo: fetching of the model by id is a default thing in Ember
-    //model: function(params) {
-    //    return Ember.RSVP.hash({
-    //        draft: this.store.find('draft', params.draft_id),
-    //        listingCategories: this.store.findAll('listingCategory')
-    //        //listingCategories: {}
-    //    });
-    //},
-    setupController: function(controller, model) {
-        this._super(controller, model);
-
-        Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
-            controller.set('listingCategories', response.listingCategories);
+    model: function(params) {
+        var model = Em.A([]);
+        this.store.find('draft', params.draft_id).then(function(content) {
+            model.set('content', content);
+            console.log(model);
+            //model.addObjects(content);
         });
+        return model;
+
+        //return this.store.find('draft', params.draft_id);
     }
+
+    //todo: fetching of the mode land listing categories will be sequential in this case, which delays view rendering
+    //afterModel: function(drafts){
+    //    return Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
+    //        drafts.set('listingCategories', response.listingCategories);
+    //    });
+    //}
+
+    //setupController: function(controller, model) {
+    //    var self = this;
+    //    self._super(controller, model);
+    //
+    //
+    //    //todo: figure out how to get API root here
+    //    Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
+    //        controller.set('listingCategories', response.listingCategories);
+    //        controller.set('programmers', [
+    //            {firstName: "Yehuda", id: 1},
+    //            {firstName: "Tom",    id: 2}
+    //        ]);
+    //    });
+    //}
 });
 
 App.DraftsController = Ember.ArrayController.extend({
@@ -85,9 +104,11 @@ App.DraftController = Ember.ObjectController.extend({
     ourFee: function() {
         return (this.get('model.minuteRate') * 0.3).toFixed(2);
     }.property('model.minuteRate'),
+
     youWillEarn: function() {
         return (this.get('model.minuteRate') - this.get('ourFee')).toFixed(2);
     }.property('model.minuteRate'),
+
     selectedCategory: {
         id: 1
     }
