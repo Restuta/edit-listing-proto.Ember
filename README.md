@@ -6,12 +6,14 @@
  * ~~load model using GET `localhost/api/listings/drafts/:id`~~
      ~~- may need local server for that (can be done with node and express in 5 mins or Nancy for .NET)~~
  * after editing is done do PUT to `/api/listings/drafts/:id`
+ * support async model loading in some way, show a spinner on top of pre-rendered model
  
  ##Ember specific:
  * split templates/controllers/views/ and routes to separate files
  * move it to EmberCLI
  * ~upgrade to Ember 1.9~
  * switch proto to Fortune.JS from Express
+ * figure out how to define recursive model "category that has sub-categories"
  
 ##How to run on Windows
 ```
