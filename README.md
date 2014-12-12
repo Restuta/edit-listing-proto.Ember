@@ -49,6 +49,9 @@ gem install compass
 #install Bower
 npm install -g bower
 
+#download dependencies from bower
+bower update
+
 #run local server + autoreload for the project
 grunt serve
 ```
