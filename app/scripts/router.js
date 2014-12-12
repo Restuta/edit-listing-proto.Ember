@@ -57,6 +57,19 @@ App.ListingsNewRoute = Ember.Route.extend({
     }
 });
 
+App.ListingsLoadingRoute = Ember.Route.extend({
+    renderTemplate: function() {
+        console.log('listings-loading');
+        this.render('draft-loading');
+    }
+});
+
+App.LoadingRoute = Ember.Route.extend({
+    renderTemplate: function() {
+        this.render('draft-loading');
+    }
+});
+
 App.DraftRoute = Ember.Route.extend({
     //todo: fetching of the model by id is a default thing in Ember
     //todo: figure out how to load template first and data after.
@@ -77,7 +90,13 @@ App.DraftRoute = Ember.Route.extend({
         return Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
             drafts.set('listingCategories', response.listingCategories);
         });
-    }
+    },
+
+    //actions: {
+    //    loading: function(transition, originRoute) {
+    //        console.log('loading...');
+    //    }
+    //}
 
     //setupController: function(controller, model) {
     //    var self = this;

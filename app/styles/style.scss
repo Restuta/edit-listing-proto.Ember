@@ -1,5 +1,6 @@
 $icon-font-path: "../styles/fonts/"; // Change the path to the fonts
-@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
+@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap",
+        "spinkit/scss/spinners/7-three-bounce";
 
 /* Put your CSS here */
 html, body {
