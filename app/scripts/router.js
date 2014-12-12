@@ -90,7 +90,7 @@ App.DraftRoute = Ember.Route.extend({
         return Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
             drafts.set('listingCategories', response.listingCategories);
         });
-    },
+    }
 
     //actions: {
     //    loading: function(transition, originRoute) {
@@ -129,9 +129,12 @@ App.DraftController = Ember.ObjectController.extend({
         return (this.get('model.minuteRate') - this.get('ourFee')).toFixed(2);
     }.property('model.minuteRate'),
 
-    selectedCategoryId: 2,
+    selectedCategory: null,
+    selectedSubCategory: null,
 
     subCategories: function(){
-        console.log('bla');
-    }.property('selectedCategoryId')
+        var currentCategory = this.get('listingCategories')
+            .findBy('id', this.get('selectedCategory'));
+        return currentCategory ? currentCategory.subCategories : [] ;
+    }.property('selectedCategory')
 });
