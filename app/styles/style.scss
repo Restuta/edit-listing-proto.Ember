@@ -1,6 +1,5 @@
 $icon-font-path: "../styles/fonts/"; // Change the path to the fonts
-@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap",
-        "spinkit/scss/spinners/7-three-bounce";
+@import "bootstrap-sass-official/vendor/assets/stylesheets/bootstrap";
 
 /* Put your CSS here */
 html, body {
@@ -14,3 +13,5 @@ html, body {
     font-size: 18px;
     width: 200px;
 }
+
+
