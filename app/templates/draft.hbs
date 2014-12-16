@@ -2,9 +2,8 @@
     <div class="row">
         <div class="col-md-3">
             <div class="input-group input-group-lg">
-
-                <label for="minute-rate">Minute Rate for&nbsp;</label>
-                <span>{{name}}:</span>
+                <label for="minute-rate">Minute Rate for:</label>
+                {{input id="draft-name" type="text" class="form-control" value=name placeholder="Listing name"}}
                 <div class="input-group">
                     <span class="input-group-addon">$</span>
                     {{input id="minute-rate" type="text" class="form-control" value=minuteRate placeholder="2.99"}}
@@ -34,7 +33,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row margin-bot">
         <div class="col-md-3">
             <div class="input-group input-group-lg">
                 <label for="category-1"></label>
@@ -60,6 +59,12 @@
                     value=selectedSubCategoryId
                     class="dropdown dropdown-custom" }}
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <button {{action 'save'}} class="btn btn-primary">Save</button>
         </div>
     </div>
 </div>

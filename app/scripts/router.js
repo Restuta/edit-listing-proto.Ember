@@ -116,5 +116,11 @@ App.DraftController = Ember.ObjectController.extend({
             ? listingCategories.findBy('id', this.get('selectedCategoryId'))
             : null;
         return currentCategory ? currentCategory.subCategories : [];
-    }.property('selectedCategoryId')
+    }.property('selectedCategoryId'),
+
+    actions: {
+        save: function() {
+            this.get('model').save();
+        }
+    }
 });
