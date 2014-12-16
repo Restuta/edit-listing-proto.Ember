@@ -15,6 +15,9 @@
  * switch proto to Fortune.JS from Express
  * figure out how to define recursive model "category that has sub-categories"
  
+##Bonus:
+ * Medium-like WYSIWIG https://github.com/daviferreira/medium-editor
+ 
 ##How to run on Windows
 ```
 #clone project from GitHub
