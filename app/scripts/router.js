@@ -13,13 +13,6 @@ App.Router.map(function() {
 App.Draft = DS.Model.extend({
     name: DS.attr(),
     minuteRate: DS.attr()
-    //todo: these properties can also be put in controller, we need to figure out good reasons to favor one over another
-    //ourFee: function() {
-    //    return (this.get('minuteRate') * 0.3).toFixed(2);
-    //}.property('minuteRate'),
-    //youWillEarn: function() {
-    //    return (this.get('minuteRate') - this.get('ourFee')).toFixed(2);
-    //}.property('minuteRate')
 });
 
 App.ListingCategory = DS.Model.extend({
@@ -27,26 +20,14 @@ App.ListingCategory = DS.Model.extend({
     children: DS.hasMany('listingCategory', {inverse: null})
 });
 
-App.Draft.FIXTURES = [{
-    id: 1,
-    name: 'First listing',
-    minuteRate: 2.99
-}, {
-    id: 2,
-    name: 'Second listing',
-    minuteRate: 5.88
-}];
-
 App.DraftsRoute = Ember.Route.extend({
     model: function() {
-        console.log('drafts route: store.findAll');
         return this.store.findAll('draft');
     }
 });
 
 App.ListingsNewRoute = Ember.Route.extend({
     redirect: function() {
-        console.log('POST /listings/drafts/ and get its id');
         var newDraft = this.store.createRecord('draft');
 
         var route = this;
@@ -57,38 +38,48 @@ App.ListingsNewRoute = Ember.Route.extend({
     }
 });
 
-App.ListingsLoadingRoute = Ember.Route.extend({
-    renderTemplate: function() {
-        console.log('listings-loading');
-        this.render('draft-loading');
-    }
-});
-
 App.LoadingRoute = Ember.Route.extend({
-    renderTemplate: function() {
+    renderTemplate: function(controller, model) {
         this.render('draft-loading');
     }
 });
 
 App.DraftRoute = Ember.Route.extend({
-    //todo: fetching of the model by id is a default thing in Ember
-    //todo: figure out how to load template first and data after.
-    //model: function(params) {
-    //    var model = Em.A([]);
-    //    this.store.find('draft', params.draft_id).then(function(content) {
-    //        model.set('content', content);
-    //        console.log(model);
-    //        //model.addObjects(content);
-    //    });
-    //    return model;
-    //
-    //    //return this.store.find('draft', params.draft_id);
-    //}
 
-    //todo: fetching of the mode land listing categories will be sequential in this case, which delays view rendering
-    afterModel: function(drafts){
-        return Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
-            drafts.set('listingCategories', response.listingCategories);
+    loadListingCategories: Ember.$.getJSON('http://localhost:3008/listingCategories-inline'),
+
+    //todo: fetching of the model by id is a default thing in Ember
+    model: function(params) {
+        var self = this;
+
+        //loading mode land additional data in parallel
+        var promises = {
+            model: this.store.find('draft', params.draft_id).then(function(model) {
+                console.log('loaded model');
+                return model;
+            }),
+            listingCategories: self.loadListingCategories.then(function(data) {
+                console.log('loaded listing categories');
+                return data.listingCategories;
+            })
+        };
+
+        return Ember.RSVP.hash(promises).then(function(result) {
+            result.model.set('listingCategories', result.listingCategories);
+            return result.model;
+        });
+    },
+
+    ////todo: fetching of the mode land listing categories will be sequential in this case, which delays view rendering
+    afterModel: function(draft) {
+        if (draft.get('listingCategories')) {
+            return;
+        }
+
+        var route = this;
+        return route.loadListingCategories.then(function(response) {
+            route.set('listingCategories', response.listingCategories);
+            draft.set('listingCategories', response.listingCategories);
         });
     }
 
@@ -96,21 +87,6 @@ App.DraftRoute = Ember.Route.extend({
     //    loading: function(transition, originRoute) {
     //        console.log('loading...');
     //    }
-    //}
-
-    //setupController: function(controller, model) {
-    //    var self = this;
-    //    self._super(controller, model);
-    //
-    //
-    //    //todo: figure out how to get API root here
-    //    Ember.$.getJSON('http://localhost:3008/listingCategories-inline').then(function(response) {
-    //        controller.set('listingCategories', response.listingCategories);
-    //        controller.set('programmers', [
-    //            {firstName: "Yehuda", id: 1},
-    //            {firstName: "Tom",    id: 2}
-    //        ]);
-    //    });
     //}
 });
 
@@ -129,12 +105,16 @@ App.DraftController = Ember.ObjectController.extend({
         return (this.get('model.minuteRate') - this.get('ourFee')).toFixed(2);
     }.property('model.minuteRate'),
 
-    selectedCategory: null,
-    selectedSubCategory: null,
+    selectedCategoryId: 1,
+    selectedSubCategoryId: function(){
+        return 10;
+    }.property('selectedCategoryId'),
 
-    subCategories: function(){
-        var currentCategory = this.get('listingCategories')
-            .findBy('id', this.get('selectedCategory'));
-        return currentCategory ? currentCategory.subCategories : [] ;
-    }.property('selectedCategory')
+    subCategories: function() {
+        var listingCategories = this.get('listingCategories');
+        var currentCategory = listingCategories
+            ? listingCategories.findBy('id', this.get('selectedCategoryId'))
+            : null;
+        return currentCategory ? currentCategory.subCategories : [];
+    }.property('selectedCategoryId')
 });

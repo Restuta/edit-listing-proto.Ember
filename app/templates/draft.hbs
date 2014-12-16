@@ -42,26 +42,23 @@
                     content=listingCategories
                     optionValuePath="content.id"
                     optionLabelPath="content.name"
-                    value=selectedCategory
+                    value=selectedCategoryId
                     class="dropdown dropdown-custom" }}
+            </div>
 
-                {{view "select"
-                    content=subCategories
-                    optionValuePath="content.id"
-                    optionLabelPath="content.name"
-                    value=selectedSubCategory
-                    class="dropdown dropdown-custom" }}
+            <div>
+                {{selectedCategoryId}} | {{selectedSubCategoryId}}
             </div>
         </div>
         <div class="col-md-9">
             <div class="input-group input-group-lg">
                 <label for="category-2"></label>
-                <select id="category-2" class="dropdown dropdown-custom">
-                    <option>Couples</option>
-                    <option>Cats</option>
-                    <option>Dogs</option>
-                    <option>Octopuses</option>
-                </select>
+                {{view "select"
+                    content=subCategories
+                    optionValuePath="content.id"
+                    optionLabelPath="content.name"
+                    value=selectedSubCategoryId
+                    class="dropdown dropdown-custom" }}
             </div>
         </div>
     </div>

@@ -1,19 +1,16 @@
 <div>
-    <div class="row">
+    <div class="row" style="padding-bottom: 10px;">
         <label>Edit Listing Draft or </label>
         {{#link-to 'listings.new' class="btn btn-primary btn-sm"}}
             Create new
         {{/link-to}}
+    </div>
+    <div class="row">
         {{#each draft in model}}
             <div>
                 {{#link-to 'draft' draft}}
-                    {{draft.id}}: {{draft.name}}
+                    {{draft.id}} {{draft.name}} ${{draft.minuteRate}} min
                 {{/link-to}}
-
-                {{!--
-                {{partial 'partials/_listing-link'}}
-                {{listing-info listing=this}}
-                --}}
             </div>
         {{/each}}
 
