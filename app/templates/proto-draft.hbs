@@ -1,0 +1,70 @@
+<div class="well">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="input-group input-group-lg">
+                <label for="minute-rate">Minute Rate for:</label>
+                {{input id="draft-name" type="text" class="form-control" value=name placeholder="Listing name"}}
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    {{input id="minute-rate" type="text" class="form-control" value=minuteRate placeholder="2.99"}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>Price Per Minute that customers will see:</div>
+                            <div>Connection Charges:</div>
+                            <div>Our Fee:</div>
+                            <div>You will earn (per minute):</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>${{minuteRate}}</div>
+                            <div>$0.00</div>
+                            <div>${{ourFee}}</div>
+                            <div class="label label-success">${{youWillEarn}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-bot">
+        <div class="col-md-3">
+            <div class="input-group input-group-lg">
+                <label for="category-1"></label>
+                {{view "select"
+                    content=listingCategories
+                    optionValuePath="content.id"
+                    optionLabelPath="content.name"
+                    value=selectedCategoryId
+                    class="dropdown dropdown-custom" }}
+            </div>
+
+            <div>
+                {{selectedCategoryId}} | {{selectedSubCategoryId}}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="input-group input-group-lg">
+                <label for="category-2"></label>
+                {{view "select"
+                    content=subCategories
+                    optionValuePath="content.id"
+                    optionLabelPath="content.name"
+                    value=selectedSubCategoryId
+                    class="dropdown dropdown-custom" }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <button {{action 'save'}} class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</div>

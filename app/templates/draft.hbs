@@ -1,70 +1,211 @@
-<div class="well">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="input-group input-group-lg">
-                <label for="minute-rate">Minute Rate for:</label>
-                {{input id="draft-name" type="text" class="form-control" value=name placeholder="Listing name"}}
-                <div class="input-group">
-                    <span class="input-group-addon">$</span>
-                    {{input id="minute-rate" type="text" class="form-control" value=minuteRate placeholder="2.99"}}
+<div class="container">
+    <form role="form">
+        <h2>Settings</h2>
+        <div class="well row form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="phone-number">Confirm Your Phone Numbers:</label>
+                <div class="col-lg-9 col-md-9 col-sm-9">
+                    <input class="form-control" type="text" id="phone-number" placeholder="Phone Number" data-mask="(999) 999-9999" style="max-width: 160px" />
+                    <a class="text-muted font-small">International Phone Numbers</a>
                 </div>
             </div>
-        </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="category">Category and Topic:</label>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <select class="form-control" id="category">
+                        <option>Category 1</option>
+                        <option>Category 2</option>
+                        <option>Category 3</option>
+                        <option>Category 4</option>
+                        <option>Category 5</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <select class="form-control">
+                        <option>Sub-Category 1</option>
+                        <option>Sub-Category 2</option>
+                        <option>Sub-Category 3</option>
+                        <option>Sub-Category 4</option>
+                        <option>Sub-Category 5</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <select class="form-control">
+                        <option>Sub-Sub-Category 1</option>
+                        <option>Sub-Sub-Category 2</option>
+                        <option>Sub-Sub-Category 3</option>
+                        <option>Sub-Sub-Category 4</option>
+                        <option>Sub-Sub-Category 5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="chat">Chat:</label>
+                <div class="col-lg-9 col-md-9 col-sm-9">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="chat"> Enable chat services for the listing
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-        <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div>Price Per Minute that customers will see:</div>
-                            <div>Connection Charges:</div>
-                            <div>Our Fee:</div>
-                            <div>You will earn (per minute):</div>
-                        </div>
-                        <div class="col-md-3">
-                            <div>${{minuteRate}}</div>
-                            <div>$0.00</div>
-                            <div>${{ourFee}}</div>
-                            <div class="label label-success">${{youWillEarn}}</div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="phone-number">Minute Rate:</label>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="number" class="form-control" placeholder="Price" style="max-width: 100px">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Yes, I want clients to be able to send me bonuses
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <div class="panel panel-group">
+                        <div class="panel-body">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td>Price Per Minute that customers will see:</td>
+                                    <td>$2.19</td>
+                                </tr>
+                                <tr>
+                                    <td>Connection Charges:</td>
+                                    <td>$0.20</td>
+                                </tr>
+                                <tr>
+                                    <td>Our Fee</td>
+                                    <td>$0.60</td>
+                                </tr>
+                                <tr class="success">
+                                    <td>You will earn (per minute):</td>
+                                    <td>$1.39</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row margin-bot">
-        <div class="col-md-3">
-            <div class="input-group input-group-lg">
-                <label for="category-1"></label>
-                {{view "select"
-                    content=listingCategories
-                    optionValuePath="content.id"
-                    optionLabelPath="content.name"
-                    value=selectedCategoryId
-                    class="dropdown dropdown-custom" }}
+        <h2>Display Details</h2>
+        <div class="well row">
+            <div class="row" style="margin-bottom: 20px; margin-left: 15px; margin-right: 15px;">
+                <div class="form-group">
+                    <input class="form-control input-lg col-lg-12" type="text" id="title" placeholder="Title" />
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <img src="/images/your-photo-here.png" class="img-responsive img-thumbnail" />
+                        <input type="file" class="form-control-static" id="exampleInputFile">
+                        <p class="help-block">Put your image here.</p>
+                    </div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-9">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h4>James Bond</h4>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="panel panel-group">
+                                    <div class="panel-body form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-8 col-md-8">Minute Rate</label>
+                                            <div class="col-md-4 col-lg-4">
+                                                <p class="form-control-static"> $2.99</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9">
+                    <textarea class="form-control" rows="6" placeholder="Short summary of your service. For example...."></textarea>
+                </div>
             </div>
 
-            <div>
-                {{selectedCategoryId}} | {{selectedSubCategoryId}}
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="input-group input-group-lg">
-                <label for="category-2"></label>
-                {{view "select"
-                    content=subCategories
-                    optionValuePath="content.id"
-                    optionLabelPath="content.name"
-                    value=selectedSubCategoryId
-                    class="dropdown dropdown-custom" }}
-            </div>
-        </div>
-    </div>
+            <div class="row">
+                <div role="tabpanel" style="padding: 15px">
 
-    <div class="row">
-        <div class="col-lg-12">
-            <button {{action 'save'}} class="btn btn-primary">Save</button>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#intro" aria-controls="intro" role="tab" data-toggle="tab">Home</a></li>
+                        <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
+                        <li role="presentation"><a href="#calendar" aria-controls="calendar" role="tab" data-toggle="tab">Calendar</a></li>
+                        <li role="presentation"><a href="#pricing" aria-controls="pricing" role="tab" data-toggle="tab">Pricing</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="intro">
+                            <div class="panel panel-default" style="min-height: 500px; padding: 15px">
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h4>Situations I specialized in </h4>
+                                        <ul>
+                                            <li>Unexpected disaster</li>
+                                            <li>Love Problems</li>
+                                            <li>Love Problems</li>
+                                            <li>Love Problems</li>
+                                            <li>Love Problems</li>
+                                            <li>Love Problems</li>
+                                            <li>Love Problems</li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h4>My skills and methods </h4>
+                                        <ul>
+                                            <li>Medium</li>
+                                            <li>Clairvoyant</li>
+                                            <li>Clairvoyant</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <h4>Languages I speak </h4>
+                                        <ul>
+                                            <li>English</li>
+                                            <li>Ukrainian</li>
+                                            <li>Sanskrit</li>
+                                            <li>French</li>
+                                            <li>Latin</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <h4 style="margin-left:20px;">My approach </h4>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <textarea class="form-control" rows="6" placeholder="Approach...."></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h4 style="margin-left:20px;">My background </h4>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <textarea class="form-control" rows="6" placeholder="Approach...."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="reviews">
+                            <div class="panel panel-default" style="min-height: 500px; padding: 15px">
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="calendar">
+                            <div class="panel panel-default" style="min-height: 500px; padding: 15px">
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="pricing">
+                            <div class="panel panel-default" style="min-height: 500px; padding: 15px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 </div>

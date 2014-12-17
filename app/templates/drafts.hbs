@@ -8,7 +8,7 @@
     <div class="row">
         {{#each draft in model}}
             <div>
-                {{#link-to 'draft' draft}}
+                {{#link-to 'proto-draft' draft}}
                     {{draft.id}} {{draft.name}} ${{draft.minuteRate}} min
                 {{/link-to}}
             </div>
