@@ -1,7 +1,7 @@
 <div class="well">
     <div class="row">
         <div class="col-md-3">
-            <div class="input-group input-group-lg">
+            <div class="input-group">
                 <label for="minute-rate">Minute Rate for:</label>
                 {{input id="draft-name" type="text" class="form-control" value=name placeholder="Listing name"}}
                 <div class="input-group">
@@ -38,33 +38,42 @@
             <div class="input-group input-group-lg">
                 <label for="category-1"></label>
                 {{view "select"
-                    content=listingCategories
-                    optionValuePath="content.id"
-                    optionLabelPath="content.name"
-                    value=selectedCategoryId
-                    class="dropdown dropdown-custom" }}
-            </div>
-
-            <div>
-                {{selectedCategoryId}} | {{selectedSubCategoryId}}
+                content=listingCategories
+                optionValuePath="content.id"
+                optionLabelPath="content.name"
+                value=selectedCategoryId
+                class="dropdown dropdown-custom" }}
             </div>
         </div>
         <div class="col-md-9">
             <div class="input-group input-group-lg">
                 <label for="category-2"></label>
                 {{view "select"
-                    content=subCategories
-                    optionValuePath="content.id"
-                    optionLabelPath="content.name"
-                    value=selectedSubCategoryId
-                    class="dropdown dropdown-custom" }}
+                content=subCategories
+                optionValuePath="content.id"
+                optionLabelPath="content.name"
+                value=selectedSubCategoryId
+                class="dropdown dropdown-custom" }}
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <button {{action 'save'}} class="btn btn-primary">Save</button>
+            {{#if isSaving}}
+                <button class="btn btn-primary disabled">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    Saving...
+                </button>
+            {{else}}
+                <button {{action 'save'}}  {{bind-attr class="isDirty:'':disabled :btn :btn-primary"}}>
+                    <span {{bind-attr class="isDirty:glyphicon-save:glyphicon-saved :glyphicon"}} aria-hidden="true"></span>
+                    {{#if isDirty}}Save{{else}}Saved{{/if}}
+                </button>
+            {{/if}}
+
+            {{#link-to 'drafts'}}Back to drafts{{/link-to}}
         </div>
+
     </div>
 </div>

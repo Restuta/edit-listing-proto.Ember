@@ -20,6 +20,8 @@ App.ProtoDraftController = Ember.ObjectController.extend({
         return currentCategory ? currentCategory.subCategories : [];
     }.property('selectedCategoryId'),
 
+    saveInProgress: false,
+
     actions: {
         save: function() {
             this.get('model').save();
