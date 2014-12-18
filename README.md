@@ -14,6 +14,7 @@
  * ~~upgrade to Ember 1.9~~
  * switch proto to Fortune.JS from Express
  * figure out how to define recursive model "category that has sub-categories"
+ * handle API errors, e.g. when `#/listings/drafts` is unable to load nothing happens
  
 ##Bonus:
  * Medium-like WYSIWIG https://github.com/daviferreira/medium-editor
