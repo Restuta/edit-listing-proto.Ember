@@ -23,7 +23,9 @@ App.DraftController = Ember.ObjectController.extend({
         var listingCategories = this.get('listingCategories');
         var secondLevelCategories = listingCategories
             ? listingCategories.filterBy('parentId', this.get('selectedFirstLevelCategoryId')) : [];
-        this.set('selectedSecondLevelCategoryId', secondLevelCategories[0].id);
+        if (secondLevelCategories.length > 0) {
+            this.set('selectedSecondLevelCategoryId', secondLevelCategories[0].id);
+        }
 
         return secondLevelCategories;
     }.property('selectedFirstLevelCategoryId'),
@@ -33,7 +35,7 @@ App.DraftController = Ember.ObjectController.extend({
         var listingCategories = this.get('listingCategories');
         var thirdLevelCategories = listingCategories
             ? listingCategories.filterBy('parentId', this.get('selectedSecondLevelCategoryId')) : [];
-        if (thirdLevelCategories){
+        if (thirdLevelCategories.length > 0){
             this.set('selectedThirdLevelCategoryId', thirdLevelCategories[0].id);
         }
 
