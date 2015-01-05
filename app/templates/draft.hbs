@@ -12,31 +12,31 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="category">Category and Topic:</label>
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                    <select class="form-control" id="category">
-                        <option>Category 1</option>
-                        <option>Category 2</option>
-                        <option>Category 3</option>
-                        <option>Category 4</option>
-                        <option>Category 5</option>
-                    </select>
+                    {{view "select"
+                        content=firstLevelCategory
+                        optionValuePath="content.id"
+                        optionLabelPath="content.name"
+                        value=selectedFirstLevelCategoryId
+                        class="form-control"
+                    }}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                    <select class="form-control">
-                        <option>Sub-Category 1</option>
-                        <option>Sub-Category 2</option>
-                        <option>Sub-Category 3</option>
-                        <option>Sub-Category 4</option>
-                        <option>Sub-Category 5</option>
-                    </select>
+                    {{view "select"
+                    content=secondLevelCategory
+                    optionValuePath="content.id"
+                    optionLabelPath="content.name"
+                    value=selectedSecondLevelCategoryId
+                    class="form-control"
+                    }}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3">
-                    <select class="form-control">
-                        <option>Sub-Sub-Category 1</option>
-                        <option>Sub-Sub-Category 2</option>
-                        <option>Sub-Sub-Category 3</option>
-                        <option>Sub-Sub-Category 4</option>
-                        <option>Sub-Sub-Category 5</option>
-                    </select>
+                    {{view "select"
+                    content=thirdLevelCategory
+                    optionValuePath="content.id"
+                    optionLabelPath="content.name"
+                    value=selectedThirdLevelCategoryId
+                    class="form-control"
+                    }}
                 </div>
             </div>
             <div class="form-group">
