@@ -15,3 +15,4 @@ App.LoadingRoute = Ember.Route.extend({
         this.render('draft-loading');
     }
 });
+
